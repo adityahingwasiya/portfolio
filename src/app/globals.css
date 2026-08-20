@@ -1,0 +1,263 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #f4f4f5;
+  --foreground: #18181b;
+}
+
+.dark {
+  --background: #05050a;
+  --foreground: #f4f4f5;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--background);
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  background: transparent;
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: #d4d4d8;
+  color: #18181b;
+}
+
+.dark ::selection {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #71717a;
+  outline-offset: 3px;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(24 24 27 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(24 24 27 / 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black, transparent);
+}
+
+.dark .bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(148 163 184 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(148 163 184 / 0.06) 1px, transparent 1px);
+}
+
+.bg-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  will-change: transform;
+}
+
+.bg-orb-a {
+  top: -18%;
+  left: -8%;
+  width: 22rem;
+  height: 22rem;
+  background: rgb(161 161 170 / 0.22);
+  animation: orb-drift-a 18s ease-in-out infinite;
+}
+
+.bg-orb-b {
+  top: 8%;
+  right: -12%;
+  width: 20rem;
+  height: 20rem;
+  background: rgb(113 113 122 / 0.16);
+  animation: orb-drift-b 22s ease-in-out infinite;
+}
+
+.bg-orb-c {
+  bottom: -18%;
+  left: 18%;
+  width: 22rem;
+  height: 22rem;
+  background: rgb(82 82 91 / 0.12);
+  animation: orb-drift-c 26s ease-in-out infinite;
+}
+
+.dark .bg-orb-a {
+  background: rgb(212 212 216 / 0.08);
+}
+
+.dark .bg-orb-b {
+  background: rgb(244 244 245 / 0.05);
+}
+
+.dark .bg-orb-c {
+  background: rgb(161 161 170 / 0.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-orb {
+    animation: none;
+  }
+}
+
+@keyframes orb-drift-a {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(7%, 10%) scale(1.08);
+  }
+}
+
+@keyframes orb-drift-b {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-10%, 8%) scale(1.12);
+  }
+}
+
+@keyframes orb-drift-c {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(8%, -12%) scale(1.06);
+  }
+}
+
+.mouse-blob {
+  opacity: 0.28;
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      rgb(34 211 238 / 0.7),
+      transparent 42%
+    ),
+    radial-gradient(
+      circle at 70% 40%,
+      rgb(168 85 247 / 0.65),
+      transparent 48%
+    ),
+    radial-gradient(
+      circle at 45% 75%,
+      rgb(236 72 153 / 0.55),
+      transparent 52%
+    );
+}
+
+.dark .mouse-blob {
+  opacity: 0.22;
+}
+
+.hero-gradient-text {
+  background-image: linear-gradient(
+    90deg,
+    #0891b2,
+    #7c3aed,
+    #db2777,
+    #0891b2
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  animation: hero-gradient-shift 7s linear infinite;
+}
+
+.dark .hero-gradient-text {
+  background-image: linear-gradient(
+    90deg,
+    #67e8f9,
+    #c084fc,
+    #f9a8d4,
+    #67e8f9
+  );
+}
+
+@keyframes hero-gradient-shift {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.electric-frame {
+  padding: 1.5px;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.electric-frame-blur {
+  filter: blur(10px);
+}
+
+.electric-current {
+  animation: electric-flow 1.8s linear infinite;
+}
+
+@keyframes electric-flow {
+  to {
+    stroke-dashoffset: -1000;
+  }
+}
+
+.portrait-border {
+  padding: 1.5px;
+  border-radius: 1.75rem;
+  background: linear-gradient(
+    120deg,
+    rgb(103 232 249 / 0.8),
+    rgb(167 139 250 / 0.45),
+    rgb(34 211 238 / 0.55)
+  );
+  background-size: 220% 220%;
+  animation: portrait-border-shift 8s ease infinite;
+  box-shadow:
+    0 0 0 1px rgb(34 211 238 / 0.08),
+    0 18px 50px rgb(2 6 23 / 0.45);
+}
+
+@keyframes portrait-border-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-gradient-text,
+  .electric-current,
+  .portrait-border {
+    animation: none;
+  }
+}
