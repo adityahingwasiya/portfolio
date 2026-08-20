@@ -3,7 +3,7 @@
 import { Line } from "@react-three/drei";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useReducedMotion } from "framer-motion";
-import { useEffect, useMemo, useRef, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, type ComponentRef, type ReactNode } from "react";
 import * as THREE from "three";
 
 const CYAN = new THREE.Color("#22d3ee");
@@ -155,15 +155,19 @@ function PingLine({
   delay: number;
   reduceMotion: boolean;
 }) {
-  const lineRef = useRef<{ material?: { dashOffset?: number } }>(null);
+  const lineRef = useRef<ComponentRef<typeof Line>>(null);
 
   useFrame(({ clock }) => {
     if (reduceMotion) {
       return;
     }
 
-    if (lineRef.current?.material) {
-      lineRef.current.material.dashOffset = -clock.elapsedTime * 2.2 - delay;
+    const material = lineRef.current?.material as
+      | { dashOffset?: number }
+      | undefined;
+
+    if (material) {
+      material.dashOffset = -clock.elapsedTime * 2.2 - delay;
     }
   });
 

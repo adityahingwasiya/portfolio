@@ -1,20 +1,27 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import type { ComponentPropsWithoutRef } from "react";
+import type { ReactNode } from "react";
 
-type RevealSectionProps = ComponentPropsWithoutRef<"section">;
+type RevealSectionProps = {
+  children: ReactNode;
+  className?: string;
+  id?: string;
+  "aria-label"?: string;
+};
 
 export function RevealSection({
   children,
   className,
-  ...props
+  id,
+  "aria-label": ariaLabel,
 }: RevealSectionProps) {
   const reduceMotion = useReducedMotion();
 
   return (
     <motion.section
-      {...props}
+      id={id}
+      aria-label={ariaLabel}
       className={className}
       initial={reduceMotion ? false : { opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
